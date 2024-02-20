@@ -3,26 +3,30 @@ import React, {useState, useEffect} from "react";
 import { useNode } from "@craftjs/core";
 import ContentEditable from 'react-contenteditable'
 import {Slider, FormControl, FormLabel} from "@material-ui/core";
+import {Typography} from '@simpplr/athena-ui';
 
 export const Text = ({text, fontSize, textAlign}) => {
 
     // const { connectors: {connect, drag}, actions: {setProp} } = useNode();
     const { connectors: {connect, drag}, hasSelectedNode, hasDraggedNode, actions: {setProp} } = useNode((state) => ({
-        hasSelectedNode: state.events.selected.size > 0,
-        hasDraggedNode: state.events.dragged.size > 0
+        // hasSelectedNode: state.events.selected.size > 0,
+        // hasDraggedNode: state.events.dragged.size > 0
       }));
 
-      const [editable, setEditable] = useState(false);
+      // const [editable, setEditable] = useState(false);
 
-      useEffect(() => {!hasSelectedNode && setEditable(false)}, [hasSelectedNode]);
+      // useEffect(() => {!hasSelectedNode && setEditable(false)}, [hasSelectedNode]);
 
 
   return (
       <div
       ref={ref => connect(drag(ref))}
       >
+        <Typography>
+            Athena text
+        </Typography>
          {/* <p style={{fontSize}}>{text}</p> */}
-         <ContentEditable
+         {/* <ContentEditable
          disabled={editable}
         html={text} 
         onChange={e => 
@@ -32,8 +36,8 @@ export const Text = ({text, fontSize, textAlign}) => {
         } 
         tagName="p"
         style={{fontSize: `${fontSize}px`, textAlign}}
-      />
-      {
+      /> */}
+      {/* {
         hasSelectedNode && (
           <FormControl className="text-additional-settings" size="small">
             <FormLabel component="legend">Font size</FormLabel>
@@ -49,7 +53,7 @@ export const Text = ({text, fontSize, textAlign}) => {
             />
           </FormControl>
         )
-      }
+      } */}
       </div>
   )
 }

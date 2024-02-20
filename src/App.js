@@ -1,51 +1,69 @@
 // pages/index.js
 
 import React from 'react';
-import {Typography, Paper, Grid} from '@material-ui/core';
+import { Button } from './Components/AthenaComponents/Button';
+import {UIProvider,  Form, Typography} from '@simpplr/athena-ui'
+import { TextInput } from './Components/AthenaComponents/TextInput';
+// import {Typography, Paper, Grid} from '@material-ui/core';
 
-import { Toolbox } from './Components/Toolbox';
-import { SettingsPanel } from './Components/SettingsPanel';
-import { Topbar } from './Components/Topbar';
+// import { Toolbox } from './Components/Toolbox';
+// import { SettingsPanel } from './Components/SettingsPanel';
+// import { Topbar } from './Components/Topbar';
 
-import { Container } from './Components/Container';
-import { Button } from './Components/Button';
-import { Card, CardTop, CardBottom } from './Components/Card';
-import { Text } from './Components/Text';
-import {Editor, Frame, Element} from "@craftjs/core";
+// import { Container } from './Components/Container';
+// import { Button } from './Components/Button';
+// import { Card, CardTop, CardBottom } from './Components/Card';
+// import { Text } from './Components/Text';
+import {Editor, Frame, Element, useEditor} from "@craftjs/core";
+import './App.css';
 
-const json = {"ROOT":{"type":{"resolvedName":"Container"},"isCanvas":true,"props":{"padding":5,"background":"#eee"},"displayName":"Container","custom":{},"hidden":false,"nodes":["iVYrvsDgkh","l1m4eBq5lH","-yWiexDl5f","887Tk273KW"],"linkedNodes":{}},"iVYrvsDgkh":{"type":{"resolvedName":"Card"},"isCanvas":false,"props":{},"displayName":"Card","custom":{},"parent":"ROOT","hidden":false,"nodes":[],"linkedNodes":{"text":"3ZVVxkhwv2","buttons":"pvEQZgZxRX"}},"l1m4eBq5lH":{"type":{"resolvedName":"Button"},"isCanvas":false,"props":{"size":"small","variant":"outlined","children":"Click"},"displayName":"Button","custom":{},"parent":"ROOT","hidden":false,"nodes":[],"linkedNodes":{}},"-yWiexDl5f":{"type":{"resolvedName":"Text"},"isCanvas":false,"props":{"size":"small","text":"Hellllllloooooo!!!!"},"displayName":"Text","custom":{},"parent":"ROOT","hidden":false,"nodes":[],"linkedNodes":{}},"887Tk273KW":{"type":{"resolvedName":"Container"},"isCanvas":true,"props":{"padding":2,"background":"#999"},"displayName":"Container","custom":{},"parent":"ROOT","hidden":false,"nodes":["htj2AflEPX"],"linkedNodes":{}},"htj2AflEPX":{"type":{"resolvedName":"Text"},"isCanvas":false,"props":{"size":"small","text":"It's me again!"},"displayName":"Text","custom":{},"parent":"887Tk273KW","hidden":false,"nodes":[],"linkedNodes":{}},"3ZVVxkhwv2":{"type":{"resolvedName":"CardTop"},"isCanvas":true,"props":{},"displayName":"CardTop","custom":{},"parent":"iVYrvsDgkh","hidden":false,"nodes":["maiSioriGE","05ngLdIdQg"],"linkedNodes":{}},"maiSioriGE":{"type":{"resolvedName":"Text"},"isCanvas":false,"props":{"text":"Testing","fontSize":20},"displayName":"Text","custom":{},"parent":"3ZVVxkhwv2","hidden":false,"nodes":[],"linkedNodes":{}},"05ngLdIdQg":{"type":{"resolvedName":"Text"},"isCanvas":false,"props":{"text":"Testing again","fontSize":15},"displayName":"Text","custom":{},"parent":"3ZVVxkhwv2","hidden":false,"nodes":[],"linkedNodes":{}},"pvEQZgZxRX":{"type":{"resolvedName":"CardBottom"},"isCanvas":true,"props":{},"displayName":"CardBottom","custom":{},"parent":"iVYrvsDgkh","hidden":false,"nodes":["EfNjyzQ5yN"],"linkedNodes":{}},"EfNjyzQ5yN":{"type":{"resolvedName":"Button"},"isCanvas":false,"props":{"size":"small","text":"Learn more"},"displayName":"Button","custom":{},"parent":"pvEQZgZxRX","hidden":false,"nodes":[],"linkedNodes":{}}}
+const json = {"ROOT":{"type":"div","isCanvas":true,"props":{},"displayName":"div","custom":{},"hidden":false,"nodes":["ptJ537IdwI","uXg4QcqYK9"],"linkedNodes":{}},"uXg4QcqYK9":{"type":"div","isCanvas":false,"props":{"className":"container"},"displayName":"div","custom":{},"parent":"ROOT","hidden":false,"nodes":["DF_V19jYLp","4qfz1jfdpM"],"linkedNodes":{}},"DF_V19jYLp":{"type":"div","isCanvas":false,"props":{"className":"headings"},"displayName":"div","custom":{},"parent":"uXg4QcqYK9","hidden":false,"nodes":["5r0PfzX6Tr"],"linkedNodes":{}},"5r0PfzX6Tr":{"type":"div","isCanvas":true,"props":{},"displayName":"div","custom":{},"parent":"DF_V19jYLp","hidden":false,"nodes":["ienOvX4RCD","pTq7FVR-gE"],"linkedNodes":{}},"ienOvX4RCD":{"type":{"resolvedName":"Typography"},"isCanvas":false,"props":{"name":"paragraph","color":"brandPrimary","id":"template","children":"Template 1 ..."},"displayName":"xf","custom":{},"parent":"5r0PfzX6Tr","hidden":false,"nodes":[],"linkedNodes":{}},"pTq7FVR-gE":{"type":{"resolvedName":"Typography"},"isCanvas":false,"props":{"children":"Template 2 ..."},"displayName":"xf","custom":{},"parent":"5r0PfzX6Tr","hidden":false,"nodes":[],"linkedNodes":{}},"4qfz1jfdpM":{"type":"div","isCanvas":false,"props":{"className":"textInput"},"displayName":"div","custom":{},"parent":"uXg4QcqYK9","hidden":false,"nodes":["a6QEuv82EO"],"linkedNodes":{}},"a6QEuv82EO":{"type":"div","isCanvas":true,"props":{},"displayName":"div","custom":{},"parent":"4qfz1jfdpM","hidden":false,"nodes":["LK5MLk19Qn"],"linkedNodes":{}},"LK5MLk19Qn":{"type":{"resolvedName":"TextInput"},"isCanvas":false,"props":{"text":"results[0].items[0].name"},"displayName":"TextInput","custom":{},"parent":"a6QEuv82EO","hidden":false,"nodes":[],"linkedNodes":{}},"ptJ537IdwI":{"type":{"resolvedName":"Button"},"isCanvas":false,"props":{},"displayName":"Button","custom":{},"parent":"ROOT","hidden":false,"nodes":[],"linkedNodes":{}}}
 
 export default function App() {
+
   return (
-    <div style={{margin: "0 auto", width: "800px"}}>
-        <Editor resolver={{Card, Button, Text, Container, CardTop, CardBottom}}> 
-        <Topbar />
-          <Grid container spacing={3}>          
-            <Grid item xs>
-              <Frame json={json}>
-                {/* <Container padding={5} background="#eee"> */}
-                <Element is={Container} padding={5} background="#eee" canvas>
-                  <Card />
-                  <Button size="small" variant="outlined">Click</Button>
-                  <Text size="small" text="Hi world!" />
-                  <Element is={Container} padding={2} background="#999" canvas>
-                  {/* <Container padding={6} background="#999"> */}
-                    <Text size="small" text="It's me again!" />
-                  {/* </Container> */}
-                  </Element>
-                {/* </Container> */}
-                </Element>
-              </Frame>
-            </Grid>
-            <Grid item xs={3}>
-              <Paper>
-                  <Toolbox />
-                  <SettingsPanel />
-              </Paper>          
-            </Grid>
-          </Grid>
-        </Editor>
+    <UIProvider>
+      <Editor resolver={{Button, TextInput, Typography}}>
+      <Frame 
+      json={json}
+      > 
+
+    <Element is='div' canvas>
+      <div className='container'>
+        <div className='headings'>
+        <Element is='div' canvas>  
+    <Typography name='paragraph' color='brandPrimary' id='template'>
+      Template 1 ...
+    </Typography>
+    <Typography>
+      Template 2 ...
+    </Typography>
+    </Element>
     </div>
+
+    <div className='textInput'>
+    <Element is='div' canvas>
+    <TextInput />
+    {/* <Element is='div' canvas> */}
+    <Button />
+    {/* </Element> */}
+    </Element>
+    </div>
+
+    </div>
+    </Element>
+    
+    </Frame>
+    </Editor>
+    </UIProvider>
   );
 }
+
+{/* <Form
+onSubmit={() => {}}
+{...finalFormConfig}
+initialValues={initialValues}
+>
+{children}
+</Form> */}
 
